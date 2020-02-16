@@ -1,20 +1,34 @@
-package yellowCab;
+package yellowcab;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 
-public class SecondTask implements Runnable {
+public class SecondTask implements Runnable{
 
-	public void run() {
-		
-		try {
-			
-			Frequency frequency = new Frequency();
-	        //running timer task as daemon thread
-	        Timer timer = new Timer(true);
-	        timer.scheduleAtFixedRate(frequency, 0, 10*1000);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
+    static int date;
+    int startTime;
+    int endTime;
+    static List<Integer> tripFreq = new ArrayList<>();
+    static List<Integer> timeFrame = new ArrayList<>();
+    
+    public SecondTask(int date, int startTime, int endTime)
+    {
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+    public void run() {
+        
+        try {
+            for( int i = startTime; i<= endTime; i++) {
+                timeFrame.add(i);
+                tripFreq.add(MyListener.dateTime[date][i]);
+                System.out.println("Frequency of trip at time " +i+ " = " +MyListener.dateTime[date][i]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }
